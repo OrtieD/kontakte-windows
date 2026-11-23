@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self'">
+<title>Kontakte</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div id="titlebar"><span class="title">Kontakte</span></div>
+<div id="app">
+  <aside id="sidebar">
+    <div class="sb-section">
+      <div class="sb-head">Auf meinem PC</div>
+      <ul id="sb-fixed"></ul>
+    </div>
+    <div class="sb-section grow">
+      <div class="sb-head">Gruppen <button id="btn-add-group" class="mini" title="Neue Gruppe">+</button></div>
+      <ul id="sb-groups"></ul>
+    </div>
+    <div id="sync-box" class="sync-box"><span id="sync-dot" class="dot off"></span><span id="sync-text">iCloud nicht verbunden</span><button id="btn-sync" class="mini" title="Jetzt synchronisieren">⟳</button></div>
+    <div class="sb-foot">
+      <button id="btn-import" title="vCard/CSV importieren">Importieren…</button>
+      <button id="btn-more" title="Weitere Funktionen">⋯</button>
+    </div>
+  </aside>
+
+  <section id="listpane">
+    <div class="search-wrap">
+      <svg viewBox="0 0 16 16" class="search-ico"><circle cx="6.5" cy="6.5" r="4.5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M10 10l4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+      <input id="search" type="search" placeholder="Suchen" autocomplete="off">
+    </div>
+    <div id="list" tabindex="0"></div>
+    <div id="alpha"></div>
+    <div class="list-foot"><span id="count"></span></div>
+  </section>
+
+  <main id="detail">
+    <div id="detail-body"></div>
+    <div class="detail-foot">
+      <button id="btn-new" class="new-btn" title="Neuer Kontakt (Strg+N)"><span class="plus">+</span>Neuer Kontakt</button>
+      <div class="spacer"></div>
+      <button id="btn-share" class="ghost" title="Als vCard exportieren">Teilen</button>
+      <button id="btn-edit" class="ghost" title="Bearbeiten (Strg+E)">Bearbeiten</button>
+    </div>
+  </main>
+</div>
+
+<div id="ctx" class="menu hidden"></div>
+<div id="dlg-back" class="hidden">
+  <div class="dlg">
+    <h2>iCloud-Synchronisierung</h2>
+    <div id="dlg-connected" class="hidden">
+      <p>Verbunden als <b id="dlg-user"></b>.</p>
+      <p class="hint">Kontakte und Gruppen werden in beide Richtungen mit iCloud abgeglichen – beim Start, alle 5 Minuten und kurz nach jeder Änderung. Favoriten bleiben nur auf diesem PC.</p>
+      <div class="dlg-bar"><button class="ghost danger-text" id="dlg-disconnect">Verbindung trennen</button><span class="spacer"></span><button class="ghost primary" id="dlg-close2">Schließen</button></div>
+    </div>
+    <div id="dlg-form">
+      <p class="hint">Melde dich mit deiner Apple-ID und einem <b>app-spezifischen Passwort</b> an (nicht dem normalen Apple-Passwort). Erstellen unter <a id="dlg-link">account.apple.com → Anmeldung und Sicherheit → App-spezifische Passwörter</a>.</p>
+      <label>Apple-ID (E-Mail)<input type="text" id="dlg-id" autocomplete="username" spellcheck="false"></label>
+      <label>App-spezifisches Passwort<input type="password" id="dlg-pw" placeholder="xxxx-xxxx-xxxx-xxxx" autocomplete="off"></label>
+      <p class="hint">Beim ersten Abgleich werden gleichnamige Kontakte auf diesem PC und in iCloud zusammengeführt, alle übrigen werden in beide Richtungen übertragen.</p>
+      <div id="dlg-err" class="err hidden"></div>
+      <div class="dlg-bar"><span class="spacer"></span><button class="ghost" id="dlg-cancel">Abbrechen</button><button class="ghost primary" id="dlg-connect">Verbinden</button></div>
+    </div>
+  </div>
+</div>
+<div id="toast" class="hidden"></div>
+<div id="dropzone" class="hidden"><div>vCard hier ablegen zum Importieren</div></div>
+
+<script src="vcard.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
